@@ -1,9 +1,10 @@
 const swaggerJSDoc = require('swagger-jsdoc');
 const swaggerUi = require('swagger-ui-express');
 
-//Configuracion del swagger
-const serverUrl = process.env.BASE_URL || `http://localhost:${process.env.PORT || 3000}`;
-
+// Configuración del swagger
+// Usar BASE_URL si está definida (p. ej. en Render) o URL relativa '/' para hacer llamadas
+// relativas al host donde se sirve la UI (evita problemas de CORS cuando accedes desde otro dispositivo).
+const serverUrl = process.env.BASE_URL || '/';
 const swaggerDefinition = {
   openapi: '3.0.0',
   info:{
@@ -11,7 +12,7 @@ const swaggerDefinition = {
     version:'1.0.0',
     description:'Documentacion de la API Swagger'
   },
-  servers:[
+  servers: [
     {
       url: serverUrl,
       description: 'Servidor'
