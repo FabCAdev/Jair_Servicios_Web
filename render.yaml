@@ -1,6 +1,6 @@
 services:
   - type: web
-    name: proyecto-final
+    name: Jair_Servicios_Web
     env: node
     plan: free
     branch: main
