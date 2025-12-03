@@ -21,7 +21,6 @@ const swaggerDefinition = {
 
 const options ={
   swaggerDefinition,
-  //Paths to files (corregido a carpeta 'Routes')
   apis:['./Routes/*.js'],
 }
 

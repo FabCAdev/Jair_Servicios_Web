@@ -1,4 +1,3 @@
-// Cargar variables de entorno desde database/database.env si existe (fallback a .env en la raíz). Esto asegura que MONGODB_URI definido en database/database.env sea leído.
 try {
   const fs = require('fs');
   const path = require('path');
@@ -14,7 +13,6 @@ try {
     dotenv.config({ path: envPath });
     console.log(`Cargado .env desde: ${envPath}`);
   } else {
-    // intenta carga por defecto (no fallará si dotenv no instalado)
     try { dotenv.config(); } catch {}
     console.warn('No se encontró archivo de entorno en database/database.env ni en .env');
   }
@@ -26,7 +24,6 @@ const express = require('express');
 const routerAPI = require('./Routes/rutas');
 const setupSwagger = require('./swagger');
 const { logErrors, errorHandler } = require('./middlewares/errorHandler');
-// Intentar cargar el módulo de base de datos desde varias ubicaciones comunes
 let connectDB, setupCloseHandlers;
 try {
  ({ connectDB, setupCloseHandlers } = require('./database'));
@@ -43,7 +40,6 @@ try {
  }
 }
 
-// Intentar usar el paquete cors; si no existe, usar un middleware CORS mínimo como fallback
 let cors;
 try {
   cors = require('cors');
@@ -70,10 +66,8 @@ async function start() {
     app.use(cors());
     app.get('/health', (req, res) => res.json({ status: 'ok' }));
 
-    // Endpoint de diagnóstico: devuelve conteos por colección
     app.get('/debug/collections', async (req, res) => {
       try {
-        // require de modelos para asegurar registro de esquemas
         const User = require('./models/Users.model');
         const Zone = require('./models/Zones.model');
         const Sensor = require('./models/Sensors.model');
